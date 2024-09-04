@@ -10,7 +10,7 @@ Dentro la cartella vi è la parte di lavoro incentrata sulle API, ossia:
 
 <h1>Come avviare il progetto</h1>
 
-Il backend è live all'indirizzo: //inserire indirzzo. Qui è possibile solo eseguire le richieste agli API endpoint e visualizzare la documentazione.
+Il backend è live all'indirizzo: https://backend-production-08dc.up.railway.app . Qui è possibile solo eseguire le richieste agli API endpoint e visualizzare la documentazione.
 
 Se il backend dovesse essere offline, è possibile eseguire il progetto in locale seguendo questi passi:
 
