@@ -4,7 +4,7 @@ Dentro la cartella vi è la parte di lavoro incentrata sulle API, ossia:
 </br></br>
 <ul>
 <li>Sviluppo</li>
-<li>Testing</li>
+<li>Testing (con cartella coverage)</li>
 <li>Documentazione</li>
 </ul>
 
