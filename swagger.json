@@ -1,0 +1,530 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "BellHotel",
+    "description": "Progetto del gruppo G11 di Ingegneria del Software anno 2023/24"
+  },
+  "host": "localhost",
+  "basePath": "/v1",
+  "tags": [
+    {
+      "name": "Utente",
+      "description": "Gestione di account \"cliente\" e \"gestore\""
+    },
+    {
+      "name": "Hotel",
+      "description": "Prenotazioni e inserimento di hotel"
+    },
+    {
+      "name": "Stanza",
+      "description": "Prenotazioni e inserimento di stanze"
+    },
+    {
+      "name": "Prenotazioni",
+      "description": "Gestione delle prenotazioni"
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/signUp": {
+      "post": {
+        "tags": [
+          "Utente"
+        ],
+        "summary": "Aggiungi un nuovo utente nel database",
+        "parameters": [
+          {
+            "name": "Nuovo Utente",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "$ref": "#/definitions/Utente/properties/email"
+                },
+                "password": {
+                  "$ref": "#/definitions/Utente/properties/password"
+                },
+                "tipoAccount": {
+                  "$ref": "#/definitions/Utente/properties/tipoAccount"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "idUtente": {
+                  "$ref": "#/definitions/Utente/properties/id"
+                },
+                "email": {
+                  "$ref": "#/definitions/Utente/properties/email"
+                },
+                "tipoAccount": {
+                  "$ref": "#/definitions/Utente/properties/tipoAccount"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "409": {
+            "description": "Conflict"
+          }
+        }
+      }
+    },
+    "/api/login": {
+      "post": {
+        "tags": [
+          "Utente"
+        ],
+        "summary": "Effettua l'accesso al sito",
+        "parameters": [
+          {
+            "name": "Utente registrato",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "$ref": "#/definitions/Utente/properties/email"
+                },
+                "password": {
+                  "$ref": "#/definitions/Utente/properties/password"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Accesso eseguito",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "idUtente": {
+                  "$ref": "#/definitions/Utente/properties/id"
+                },
+                "email": {
+                  "$ref": "#/definitions/Utente/properties/email"
+                },
+                "tipoAccount": {
+                  "$ref": "#/definitions/Utente/properties/tipoAccount"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/eliminaAccount": {
+      "delete": {
+        "tags": [
+          "Utente"
+        ],
+        "summary": "Rimuovi un account dal database",
+        "parameters": [
+          {
+            "name": "ID utente",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "IDutente": {
+                  "$ref": "#/definitions/Utente/properties/id"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Account eliminato"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/inserisciHotel": {
+      "post": {
+        "tags": [
+          "Hotel"
+        ],
+        "summary": "Inserisci un hotel sul sito",
+        "parameters": [
+          {
+            "name": "Nuovo hotel",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "IDgestore": {
+                  "$ref": "#/definitions/Hotel/properties/IDgestore"
+                },
+                "nome": {
+                  "$ref": "#/definitions/Hotel/properties/nome"
+                },
+                "provincia": {
+                  "$ref": "#/definitions/Hotel/properties/provincia"
+                },
+                "numeroStelle": {
+                  "$ref": "#/definitions/Hotel/properties/numeroStelle"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Hotel inserito correttamente"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "409": {
+            "description": "Conflict"
+          }
+        }
+      }
+    },
+    "/api/inserisciStanza": {
+      "post": {
+        "tags": [
+          "Stanza"
+        ],
+        "summary": "Inserisci una stanza in un hotel",
+        "parameters": [
+          {
+            "name": "Nuova stanza",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "IDgestore": {
+                  "$ref": "#/definitions/Hotel/properties/IDgestore"
+                },
+                "IDhotel": {
+                  "$ref": "#/definitions/Stanze/properties/IDhotel"
+                },
+                "numeroPostiLetto": {
+                  "$ref": "#/definitions/Stanze/properties/numeroPostiLetto"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Stanza inserita correttamente"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/prenotazione": {
+      "post": {
+        "tags": [
+          "Prenotazioni"
+        ],
+        "summary": "Prenota una stanza di un hotel",
+        "parameters": [
+          {
+            "name": "Nuova prenotazione",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "numeroPersone": {
+                  "$ref": "#/definitions/Prenotazioni/properties/numeroPersone"
+                },
+                "inizioSoggiorno": {
+                  "$ref": "#/definitions/Prenotazioni/properties/inizioSoggiorno"
+                },
+                "fineSoggiorno": {
+                  "$ref": "#/definitions/Prenotazioni/properties/fineSoggiorno"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "IDstanza": {
+                  "$ref": "#/definitions/Prenotazioni/properties/IDstanza"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Prenotazione effettuata"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/getIDs{IDutente}": {
+      "get": {
+        "tags": [
+          "Utente"
+        ],
+        "summary": "Ottieni gli ID delle prenotazioni se sei cliente, altrimenti ottieni ID degli hotel se sei gestore",
+        "parameters": [
+          {
+            "name": "IDutente",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Utente/properties/id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "IDprenotazione": {
+                  "$ref": "#/definitions/Prenotazioni/properties/id"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/ricerca": {
+      "get": {
+        "tags": [
+          "Hotel"
+        ],
+        "summary": "Cerca un hotel",
+        "parameters": [
+          {
+            "name": "provincia",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "numeroPersone",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "IDhotel": {
+                  "$ref": "#/definitions/Hotel/properties/id"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Utente": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "6627d9dbe35700ef9a16c9b5"
+        },
+        "email": {
+          "type": "string",
+          "example": "giorgioBianchi@gmail.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "giorgio89"
+        },
+        "tipoAccount": {
+          "type": "string",
+          "enum": [
+            "cliente",
+            "gestore"
+          ],
+          "example": "cliente"
+        }
+      },
+      "required": [
+        "id",
+        "email",
+        "password",
+        "tipoAccount"
+      ]
+    },
+    "Hotel": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "66309965e135aebced256141"
+        },
+        "IDgestore": {
+          "type": "string",
+          "example": "66ccdb08bfb2347fe39effcb"
+        },
+        "nome": {
+          "type": "string",
+          "example": "HotelRigoletto"
+        },
+        "provincia": {
+          "type": "string",
+          "example": "Mantova"
+        },
+        "numeroStelle": {
+          "type": "integer",
+          "example": 3
+        }
+      },
+      "required": [
+        "id",
+        "nome",
+        "numeroStelle"
+      ]
+    },
+    "Stanze": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "66309a40e135aebced256142"
+        },
+        "IDhotel": {
+          "type": "string",
+          "example": "66309965e135aebced256141"
+        },
+        "reserved": {
+          "type": "boolean",
+          "example": true
+        },
+        "numeroPostiLetto": {
+          "type": "integer",
+          "example": 5
+        }
+      },
+      "required": [
+        "id",
+        "IDhotel",
+        "reserved",
+        "numeroPostiLetto"
+      ]
+    },
+    "Prenotazioni": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "662e0b7e40365e8c5c16c9b5"
+        },
+        "numeroPersone": {
+          "type": "integer",
+          "example": 5
+        },
+        "IDutente": {
+          "type": "string",
+          "example": "6627d9dbe35700ef9a16c9b5"
+        },
+        "IDhotel": {
+          "type": "string",
+          "example": "66309965e135aebced256141"
+        },
+        "IDstanza": {
+          "type": "string",
+          "example": "66309a40e135aebced256142"
+        },
+        "inizioSoggiorno": {
+          "type": "string",
+          "example": "2024-06-15T00:00:00.000Z",
+          "format": "date",
+          "pattern": "YYYY-MM-DD"
+        },
+        "fineSoggiorno": {
+          "type": "string",
+          "example": "2024-06-20T00:00:00.000Z",
+          "format": "date",
+          "pattern": "YYYY-MM-DD"
+        }
+      },
+      "required": [
+        "id",
+        "IDutente",
+        "IDhotel",
+        "Idstanza",
+        "inizioSoggiorno",
+        "fineSoggiorno"
+      ]
+    }
+  }
+}
