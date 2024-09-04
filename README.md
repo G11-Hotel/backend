@@ -1,2 +1,8 @@
 Questa repository contiene il codice del backend del progetto BellHotel. 
-Dentro la cartella vi è la parte di lavoro incentrata sulle API
+Dentro la cartella vi è la parte di lavoro incentrata sulle API, ossia: 
+
+- Sviluppo
+- Testing
+- Documentazione
+
+Come avviare il progetto:
